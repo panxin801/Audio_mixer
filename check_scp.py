@@ -1,21 +1,26 @@
 import os, sys
 currentPath = os.getcwd()
 
-if len(sys.argv) != 3:
-    print("param num error. Need 2 params.")
-    exit(1)
+# if len(sys.argv) != 3:
+#     print("param num error. Need 2 params.")
+#     exit(1)
 
-baseFile = sys.argv[1]
-needFix = sys.argv[2]
+# baseFile = sys.argv[1]
+# needFix = sys.argv[2]
+baseFile = "wav.scp"
+needFix = "text"
 
 baseFile = os.path.join(currentPath, baseFile)
 needFix = os.path.join(currentPath, needFix)
 
 searchDict = {}
 for line in open(needFix, "rt", encoding="utf-8"):
-    uttid, text = line.split(" ", 1)
-    text = text.strip()
-    searchDict.update({uttid: text})
+    line = line.strip()
+    try:
+        uttid, text = line.split(" ", 1)
+        searchDict.update({uttid: text})
+    except Exception:
+        print(line + " Error.")
 
 writeFile = needFix + "new"
 wF = open(writeFile, "wt", encoding="utf-8")
