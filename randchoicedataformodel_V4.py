@@ -3,10 +3,10 @@ import sys
 import random
 
 if __name__ == "__main__":
-    currentPath = r"/data/ASR_Datasets/Dataset_px_yue/data/train_no_noise"
-    savePath = r"/data/ASR_Datasets/Dataset_px_yue/data"
+    currentPath = r"/home/panxin/kaldi/egs/aishell2_kefu/s5/data/train"
+    savePath = r"/home/panxin/kaldi/egs/aishell2_kefu/s5/data"
 
-    percent = 0.15
+    percent = 0.1
     seed = 1235
     backffix = "_with_noise"
 
@@ -26,6 +26,10 @@ if __name__ == "__main__":
             empty = True
             print(line)
     # Done text dict make
+
+    tmpSave=os.path.join(currentPath,"text_new")
+    with open(tmpSave,"wt",encoding="utf-8") as f:
+        for key in text
 
     if empty:
         print("Blank line occurs!!!")
