@@ -1,14 +1,12 @@
 import os, sys
 currentPath = os.getcwd()
 
-# if len(sys.argv) != 3:
-#     print("param num error. Need 2 params.")
-#     exit(1)
+if len(sys.argv) != 3:
+    print("param num error. Need 2 params.")
+    exit(1)
 
-# baseFile = sys.argv[1]
-# needFix = sys.argv[2]
-baseFile = "wav.scp"
-needFix = "text"
+baseFile = sys.argv[1]
+needFix = sys.argv[2]
 
 baseFile = os.path.join(currentPath, baseFile)
 needFix = os.path.join(currentPath, needFix)
