@@ -36,7 +36,7 @@ if __name__ == "__main__":
     tmpSave = os.path.join(currentPath, "utt2spk_new")
     tmpRead = os.path.join(currentPath, "utt2spk")
     with open(tmpSave, "wt") as f:
-        for line in open(tmpRead, "wt").readlines():
+        for line in open(tmpRead, "rt").readlines():
             line = line.strip()
             uttid, spkid = line.split(" ")
         if uttid in textContext.keys():
@@ -44,7 +44,7 @@ if __name__ == "__main__":
     tmpSave = os.path.join(currentPath, "wav.scp_new")
     tmpRead = os.path.join(currentPath, "wav.scp")
     with open(tmpSave, "wt", encoding="utf-8") as f:
-        for line in open(tmpRead, "wt").readlines():
+        for line in open(tmpRead, "rt").readlines():
             line = line.strip()
             uttid, path = line.split(" ")
         if uttid in textContext.keys():
