@@ -27,9 +27,11 @@ if __name__ == "__main__":
             print(line)
     # Done text dict make
 
-    tmpSave=os.path.join(currentPath,"text_new")
-    with open(tmpSave,"wt",encoding="utf-8") as f:
-        for key in text
+    # maybe this one is optional
+    tmpSave = os.path.join(currentPath, "text_new")
+    with open(tmpSave, "wt", encoding="utf-8") as f:
+        for key in textContext.keys():
+            f.write("%s %s\n" % (key, textContext.get(key)))
 
     if empty:
         print("Blank line occurs!!!")
