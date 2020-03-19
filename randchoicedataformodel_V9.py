@@ -3,7 +3,7 @@ import sys
 import random
 
 
-def write_new_file(currentPath, processFileName, textContext):
+def write_new_base_file(currentPath, processFileName, textContext):
     num = 0
     tmpSave = os.path.join(currentPath, processFileName + "_new")
     tmpRead = os.path.join(currentPath, processFileName)
@@ -23,13 +23,26 @@ def write_new_file(currentPath, processFileName, textContext):
         sys.exit(1)
 
 
+def write_output_file(savePath, saveName, indexList, fileKeys, contextDict):
+    with open(os.path.join(savePath, saveName), "wt", encoding="utf-8") as f:
+        for i in indexList:
+            key = fileKeys[i - 1]
+            value = contextDict.get(key)
+            f.write("%s %s\n" % (key, value))
+
+
 if __name__ == "__main__":
-    currentPath = r"/home/panxin/kaldi/egs/aishell2_kefu/s5/data/train"
-    savePath = r"/home/panxin/kaldi/egs/aishell2_kefu/s5/data"
+    currentPath = sys.argv[1]
+    # currentPath = r"C:\Users\PX\Desktop\train_mixed"
+    # savePath = r"C:\Users\PX\Desktop"
 
     percent = 0.1
     seed = 1235
     backffix = "_with_noise"
+
+    if currentPath.endswith("/") or currentPath.endswith("\\"):
+        currentPath = currentPath[:-1]
+    savePath = os.path.dirname(currentPath)
 
     textContext = {}
     empty = False
@@ -48,7 +61,7 @@ if __name__ == "__main__":
             print(line)
     # Done text dict make
 
-    # maybe this one is optional
+    # Maybe this one is optional
     if empty:
         tmpSave = os.path.join(currentPath, "text_new")
         with open(tmpSave, "wt", encoding="utf-8") as f:
@@ -59,9 +72,10 @@ if __name__ == "__main__":
         os.remove(tmpRead)
         os.rename(tmpSave, tmpRead)
 
-        write_new_file(currentPath, "utt2spk", textContext)
-        write_new_file(currentPath, "wav.scp", textContext)
+        write_new_base_file(currentPath, "utt2spk", textContext)
+        write_new_base_file(currentPath, "wav.scp", textContext)
 
+    # Back to regular route
     readFilename = os.path.join(currentPath, "wav.scp")
     fileContext = {}
     for line in open(readFilename, "rt").readlines():
@@ -90,23 +104,11 @@ if __name__ == "__main__":
     indexList.sort()  # 需要的索引列表
 
     saveName = "wav" + backffix + ".scp"
-    with open(os.path.join(savePath, saveName), "wt", encoding="utf-8") as f:
-        for i in indexList:
-            key = fileKeys[i - 1]
-            value = fileContext.get(key)
-            f.write("%s %s\n" % (key, value))
+    write_output_file(savePath, saveName, indexList, fileKeys, fileContext)
 
     saveName = "utt2spk" + backffix
-    with open(os.path.join(savePath, saveName), "wt", encoding="utf-8") as f:
-        for i in indexList:
-            key = fileKeys[i - 1]
-            value = utt2spkContext.get(key)
-            f.write("%s %s\n" % (key, value))
+    write_output_file(savePath, saveName, indexList, fileKeys, utt2spkContext)
 
     saveName = "text" + backffix
-    with open(os.path.join(savePath, saveName), "wt", encoding="utf-8") as f:
-        for i in indexList:
-            key = fileKeys[i - 1]
-            value = textContext.get(key)
-            f.write("%s %s\n" % (key, value))
+    write_output_file(savePath, saveName, indexList, fileKeys, textContext)
     print("done!")
