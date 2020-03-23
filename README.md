@@ -63,7 +63,21 @@ python 02_add-noise-mod-rand3-windows.py --noise-level-low -10 --noise-level-hig
 --wavdir is where you want new files stores at.
 ```
 
-If all good, you should see you new mixed files in `--wavdir`. Please contact me if this tool have bug or problems.
+If all good, you should see you new mixed files in `--wavdir`. 
+
+
+
+## randchoicedataformodel_V9
+
+This tool is used for randomly selecting utt-id and it's corresponding spk-id and text informations and then save as some new file.  By the following command we can use this tool:
+
+`python3 randchoicedataformodel_V9.py ${input_dir}`
+
+`${input_dir}` is where you save the old wav.scp files, and it will generate new file on the parent dir of `${input_dir}`.
+
+
+
+Please contact me if this tool have bug or problems.
 
 Thank you.
 

@@ -36,9 +36,9 @@ if __name__ == "__main__":
     # currentPath = r"C:\Users\PX\Desktop\train_mixed"
     # savePath = r"C:\Users\PX\Desktop"
 
-    percent = 0.1
+    percent = 0.1  # new_file_num=old_file_num * percent
     seed = 1235
-    backffix = "_with_noise"
+    backffix = "_with_noise"  # save file name backffix
 
     if currentPath.endswith("/") or currentPath.endswith("\\"):
         currentPath = currentPath[:-1]
